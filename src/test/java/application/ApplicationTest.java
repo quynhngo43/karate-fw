@@ -14,6 +14,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import io.cucumber.junit.CucumberOptions;
+@CucumberOptions(
+        plugin = {
+                "pretty",
+                "html:test-output.html",
+                "json:target/cucumber-report/cucumber.json", // third-party se build ra report tu path nay
+                "me.jvt.cucumber.report.PrettyReports:target/maven-cucumber-report"
+        }
+)
 class ApplicationTest {
 
     @Test
@@ -32,6 +41,17 @@ class ApplicationTest {
         Configuration config = new Configuration(new File("target"), "Conduit Application");
         ReportBuilder reportBuilder = new ReportBuilder(jsonPaths, config);
         reportBuilder.generateReports();
+
+
+//        String cucumberJsonPath = "target/cucumber-report/cucumber.json";
+//        File reportOutputDirectory = new File("target/cucumber-html-report");
+//        List<String> jsonFiles = new ArrayList<>();
+//        jsonFiles.add(cucumberJsonPath);
+//
+//        Configuration configuration = new Configuration(reportOutputDirectory, "Swagger");
+//        ReportBuilder reportBuilder = new ReportBuilder(jsonFiles, configuration);
+//        reportBuilder.generateReports();
+
     }
 
 //    @Test
