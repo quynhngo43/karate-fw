@@ -6,7 +6,7 @@ Feature: Validate favorite and comment function
       # Step 1: Add new article (optimize here - Create a AddArticle.feature)
     * def dataGenerator = Java.type('helpers.DataGenerator')
     * def articleTitle = dataGenerator.getRandomArticle()
-    Given def newArticle = call read('classpath:application/feature/AddArticle.feature') {"title": '#(articleTitle)'}
+    Given def newArticle = call read('classpath:helpers/AddArticle.feature') {"title": '#(articleTitle)'}
       # Step 2: Get the favorites count and slug ID for the the article, save it to variables
     * def resID = newArticle.response.article.slug
     * def favoriteCount = newArticle.response.article.favoritesCount
@@ -52,7 +52,7 @@ Feature: Validate favorite and comment function
     * print response.articles
     Then match response..slug contains resID
         # Step 9: Delete the article (optimize here with afterScenario - create a Hook.feature)
-    * configure afterScenario = function (){karate.call('DeleteArticle.feature', {"articleId": resID});}
+    * configure afterScenario = function (){karate.call('classpath:helpers/DeleteArticle.feature', {"articleId": resID});}
 
   Scenario: Comment articles
         # Step 3: Make a GET call to 'comments' end-point to get all comments
@@ -83,4 +83,4 @@ Feature: Validate favorite and comment function
     When method Get
     Then match Number(response.comments.length) == numberOfComments.length
         # Step 12: Delete the article (optimize here with afterScenario - create a Hook.feature)
-    * configure afterScenario = function (){karate.call('DeleteArticle.feature', {"articleId": resID});}
+    * configure afterScenario = function (){karate.call('classpath:helpers/DeleteArticle.feature', {"articleId": resID});}
