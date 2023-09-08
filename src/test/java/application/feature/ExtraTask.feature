@@ -26,7 +26,6 @@ Feature: Convert data
       }
     """
     * def newText = call func txtText
-
     * def replacement = Java.type('helpers.TextProcessing')
     * replace newText
       | token                         | value                                                           |
@@ -80,6 +79,5 @@ Feature: Convert data
       | country_15                    | replacement.addSpace(jsonFile.country_15, 15)                   |
       | census_tract_10               | replacement.addSpace(jsonFile.census_tract_10, 10)              |
       | filler_30                     | replacement.addSpace(jsonFile.filler_30, 30)                    |
-    * print newText
     * def fileWriter = Java.type('helpers.FileCreator')
     * eval fileWriter.CreateTxtFile('src/test/java/data/originalData.txt', newText)
